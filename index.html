@@ -187,8 +187,6 @@ Error message and password prompt
 
 <li>Debian Core</li>
 
-<li>Draft of 'Kali Linux - Websploit'</li>
-
 <li>Kali Linux - Websploit</li>
 
 <li>Man in the Middle Attack</li>
@@ -9637,7 +9635,7 @@ GettingStarted
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20200530222341194" list="TableOfContents [[Draft of 'Kali Linux - Websploit']] GettingStarted" modified="20200530222341194" title="$:/StoryList">
+<div created="20200530224317707" list="[[Kali Linux - Websploit]] TableOfContents GettingStarted" modified="20200530224317707" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9816,7 +9814,7 @@ GettingStarted
 <div created="20200530205325632" modified="20200530205419583" tags="[[Man in the Middle Attack]]" title="Debian Core">
 <pre>INSERTAR INFO AQUI</pre>
 </div>
-<div created="20200530205044074" draft.of="Kali Linux - Websploit" draft.title="Kali Linux - Websploit" modified="20200530222558257" tags="[[Man in the Middle Attack]]" title="Draft of 'Kali Linux - Websploit'">
+<div created="20200530205044074" modified="20200530224322076" tags="[[Man in the Middle Attack]]" title="Kali Linux - Websploit">
 <pre>Para llevar a cabo este se creó un USB booteable con Kali Linux con [[esta guia|https://www.kali.org/docs/usb/kali-linux-live-usb-install/]].
 
 Tras bootear en este sistema (en una computadora con conexión wifi) fue necesario descargar la herramienta [[WebSploit|https://github.com/websploit/websploit]] utilizando el siguiente comando en una terminal:
@@ -9868,53 +9866,6 @@ Como se puede observar, websploit registra todos los requests http realizados y 
 El único que no pudo ser vulnerado con el procedimiento anterior fue el dispositivo iPhone. Websploit registraba el request de login, más no desplegaba las credenciales.
 
 Además, en otros sistemas el método no era infalible, dado que en ocasiones no era capaz de capturar las credenciales del target.</pre>
-</div>
-<div created="20200530205044074" modified="20200530212211713" tags="[[Man in the Middle Attack]]" title="Kali Linux - Websploit">
-<pre>Para llevar a cabo este se creó un USB booteable con Kali Linux con [[esta guia|https://www.kali.org/docs/usb/kali-linux-live-usb-install/]].
-
-Tras bootear en este sistema (en una computadora con conexión wifi) fue necesario descargar la herramienta [[WebSploit|https://github.com/websploit/websploit]] utilizando el siguiente comando en una terminal:
-
-`apt install websploit`
-
-Una vez descargado se necesitan 2 terminales abiertas. Una servirá para [[arp spoofing|https://es.wikipedia.org/wiki/Suplantaci%C3%B3n_de_ARP]] y la otra para [[sniffing|https://es.wikipedia.org/wiki/Analizador_de_paquetes]] de los paquetes http.
-
-Para ello es identificar cierta información:
-
-* Gateway de la red
-* Target (máquina que se desea atacar)
-* Interfaz de red de Kali Linux
-
-En el escenario realizado de forma local, el ''gateway ''es `192.168.1.254`, el ''target ''es `192.168.1.72`, que representa una computadora de escritorio con Windows 10 y la ''interfaz de red'' es `wlan0`, obtenida a través de `ip a` en Kali Linux.
-
-Las dos consolas necesitan la cuenta ''root'', por lo que se ejecuta `sudo bash` en cada una.
-
-Primero se aplica el ''envenenamiento de ARP'' con la ''consola 1'' con los siguientes comandos:
-
-* `websploit`
-* `use arp_spoof`
-* `set target 192.168.1.72`
-* `set gateway 192.168.1.254`
-* Comprobar con el comando `options`
-* `execute`
-
-Tras el último comando, se observará en pantalla algo similar a la siguiente imagen:
-
-[img[arp_spoof.png]]
-
-donde se muestra que la dirección MAC de Kali Linux está siendo enviada al ''gateway ''y al ''target''.
-
-Ahora, con la ''consola 2'' se puede ''sniffear'' los paquetes http con los sigueintes comandos:
-
-* `websploit`
-* `use http_sniffer`
-* `set iface wlan0`
-* `execute`
-
-No aparecerá nada en consola hasta que la máquina ''target'' (Windows 10) acceda a información por medio de http. Por ejemplo, si en Windows 10 se abre [[esta página|http://rbzs.myspecies.info/scratchpads-front?destination=scratchpads-front]], se selecciona la opción login y se introduce //dummyUsername// y //dummyPassword// como usuario y contraseña, respectivamente, se observará la siguiente salida en la consola 2 de Kali Linux:
-
-[img[sniffing.png]]
-
-Como se puede observar, websploit registra todos los requests http realizados y además aquellos intentos de login en páginas, con lo cual es posible obtener las credenciales de un usuario navegando en páginas no seguras.</pre>
 </div>
 <div created="20200530204358413" modified="20200530205427405" tags="TableOfContents" title="Man in the Middle Attack" type="text/vnd.tiddlywiki">
 <pre>Esta sección resume las pruebas de los ataques realizados con [[Kali Linux|Kali Linux - Websploit]] y [[Debian Core|Debian Core]].
